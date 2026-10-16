@@ -1,0 +1,8 @@
+// Detecção de múltiplas falhas de autenticação
+
+SigninLogs
+| where TimeGenerated >= ago(24h)
+| where ResultType != 0
+| summarize Falhas=count() by UserPrincipalName, IPAddress
+| where Falhas >= 10
+| order by Falhas desc
