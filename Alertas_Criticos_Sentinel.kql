@@ -1,0 +1,12 @@
+// Alertas de alta severidade
+
+SecurityAlert
+| where TimeGenerated >= ago(7d)
+| where Severity in ("High","Medium")
+| project
+    TimeGenerated,
+    AlertName,
+    Severity,
+    CompromisedEntity,
+    ProviderName
+| order by TimeGenerated desc
