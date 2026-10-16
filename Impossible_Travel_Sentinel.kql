@@ -1,0 +1,7 @@
+// Identificação de acessos de múltiplos países
+
+SigninLogs
+| where TimeGenerated >= ago(24h)
+| summarize Paises=make_set(tostring(LocationDetails.countryOrRegion))
+by UserPrincipalName
+| where array_length(Paises) > 1
