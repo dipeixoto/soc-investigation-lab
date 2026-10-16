@@ -1,0 +1,15 @@
+// Investigação de IP
+// Retorna atividades associadas a um IP específico
+
+let IPInvestigado = "8.8.8.8";
+
+SigninLogs
+| where TimeGenerated >= ago(7d)
+| where IPAddress == IPInvestigado
+| project
+    TimeGenerated,
+    UserPrincipalName,
+    IPAddress,
+    AppDisplayName,
+    ResultDescription
+| order by TimeGenerated desc
